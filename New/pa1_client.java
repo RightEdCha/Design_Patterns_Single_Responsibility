@@ -105,6 +105,11 @@ class DataConvertor {
 class ClientApplication{
     //Runs the main application along with handling user inputs and printing to console.
     public static void main(String argv[]) throws Exception{
+        if(argv.length < 2){
+            System.out.println("Arguement length is less than 2 please check your arguement inputs and try again.");
+            return;
+        }
+
         String serverName = argv[0];
         int port = Integer.parseInt(argv[1]);
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
@@ -120,7 +125,7 @@ class ClientApplication{
             while(true){
                 handler.sendData(userInput.readLine(), TCPConnectionResources.getOutputStream());
                 String response = handler.readData(TCPConnectionResources.getInputStream());
-                System.out.println(convertor.toString(response));
+                System.out.println("receive: " + convertor.toString(response));
 
                 if(response.equals("-5")){
                     break;
